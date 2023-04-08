@@ -19,7 +19,7 @@ interface PokemonState {
 
 export const usePokemonState = create<PokemonState>((set) => ({
   pokemonNamesList: {} as PokemonNamesList,
-  pokemonInfoList: {} as PokemonInfoResponse[],
+  pokemonInfoList: [] as PokemonInfoResponse[],
   getAllPokemonNames: async () => {
     const response = await listAllPokemonNamesList();
 

@@ -1,0 +1,9 @@
+.spacing {
+  gap: 16px;
+}
+
+.positioning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -5,11 +5,6 @@ import { RemoteLoadPokemonInfo } from "../../../../application/services/users";
 import { AxiosHttpClient } from "@/app/infra/http/axios-http-client";
 import { pokemonInfoParams } from "../types";
 
-let test = [
-  "https://pokeapi.co/api/v2/pokemon/1/",
-  "https://pokeapi.co/api/v2/pokemon/2",
-];
-
 const axiosInstance = AxiosHttpClient.getInstance();
 
 export const listAllPokemonNamesList = async (): Promise<
