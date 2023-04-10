@@ -1,4 +1,5 @@
 import "./globals.css";
+import "bootstrap/dist/css/bootstrap.css";
 import { Navbar } from "./presentation/components";
 
 export const metadata = {

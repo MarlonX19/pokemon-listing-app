@@ -1,5 +1,6 @@
 .dimensions {
   max-width: 200px;
+  position: relative;
 }
 
 @media (max-width: 630px) {
@@ -21,4 +22,19 @@
   width: 130px;
   height: 130px;
   cursor: pointer;
+}
+
+.linking {
+  text-decoration: none;
+  color: rgb(0, 70, 128);
+  font-size: 12px;
+}
+
+.RemoveFav {
+  color: rgb(156, 169, 180);
+  font-size: 12px;
+}
+
+.RemoveFav:hover {
+  color: rgb(0, 70, 128);
 }

@@ -1,14 +1,24 @@
 "use client";
-import "bootstrap/dist/css/bootstrap.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Inter } from "next/font/google";
-import { listPokemonInfo, usePokemonState } from "./store/features";
+import {
+  listPokemonInfo,
+  useFavoritePokemons,
+  usePokemonState,
+} from "./store/features";
 import styles from "./page.module.css";
 import { Card, Container } from "./presentation/components";
+import Pagination from "./presentation/components/pagination";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const LIMIT = 20;
+
 export default function Home() {
+  const [offset, setOffset] = useState<string | number>("0");
+
+  console.log("===offset", offset);
+
   const {
     pokemonNamesList,
     getAllPokemonNames,
@@ -16,28 +26,40 @@ export default function Home() {
     getAllPokemonInfo,
   } = usePokemonState((state) => state);
 
-  console.log("===pokemonInfoList", pokemonInfoList);
+  const { currentFavoritePokemon } = useFavoritePokemons((state: any) => state);
+
+  console.log("===currentFavoritePokemon", currentFavoritePokemon);
 
   useEffect(() => {
-    getAllPokemonNames();
-  }, []);
+    getAllPokemonNames(String(offset), String(LIMIT));
+  }, [offset]);
+
+  useEffect(() => {
+    if (pokemonNamesList.results) {
+      getAllPokemonInfo(pokemonNamesList.results);
+    }
+  }, [pokemonNamesList]);
 
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <Container>
-        <div onClick={() => getAllPokemonInfo(pokemonNamesList.results)}>
-          get info
-        </div>
         {pokemonInfoList?.map((values) => {
           return (
             <Card
               key={values.body.id}
+              currentId={values.body.id}
               name={values.body.name}
               imageUrl={values.body.sprites.other.dream_world.front_default}
             />
           );
         })}
+        <Pagination
+          page={offset}
+          limit={LIMIT}
+          total={pokemonNamesList?.count}
+          setPage={setOffset}
+        />
       </Container>
-    </main>
+    </div>
   );
 }

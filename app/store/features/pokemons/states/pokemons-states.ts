@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import {
   PokemonInfoResponse,
   PokemonNamesList,
@@ -8,20 +9,26 @@ import {
   listAllPokemonNamesList,
   listPokemonInfo,
 } from "../api/pokemon-api-calls";
-import { pokemonInfoParams } from "../types";
+import { FavoritePokemonType, pokemonInfoParams } from "../types";
 
 interface PokemonState {
   pokemonNamesList: PokemonNamesList;
   pokemonInfoList: PokemonInfoResponse[];
-  getAllPokemonNames: () => void;
+  getAllPokemonNames: (offset: string, limit: string) => void;
   getAllPokemonInfo: (param: pokemonInfoParams[]) => void;
+}
+
+interface FavoritePokemonState {
+  currentFavoritePokemon: string[];
+  addFavoritePokemon: (param: string) => void;
+  removeFavoritePokemon: (param: string) => void;
 }
 
 export const usePokemonState = create<PokemonState>((set) => ({
   pokemonNamesList: {} as PokemonNamesList,
   pokemonInfoList: [] as PokemonInfoResponse[],
-  getAllPokemonNames: async () => {
-    const response = await listAllPokemonNamesList();
+  getAllPokemonNames: async (offset: string, limit: string) => {
+    const response = await listAllPokemonNamesList(offset, limit);
 
     if (response.statusCode === HttpStatusCode.ok) {
       set((state) => ({ pokemonNamesList: response.body }));
@@ -34,3 +41,35 @@ export const usePokemonState = create<PokemonState>((set) => ({
     set((state) => ({ pokemonInfoList: response }));
   },
 }));
+
+//Using zustand's persist feature to deal with localstorage for the favorite pokemons to be listed
+export const useFavoritePokemons = create<FavoritePokemonState>()(
+  persist(
+    (set, get) => ({
+      currentFavoritePokemon: [] as string[],
+      addFavoritePokemon: (pokemonId: string) =>
+        set((prevState: FavoritePokemonState) => {
+          return {
+            currentFavoritePokemon: [
+              ...prevState.currentFavoritePokemon,
+              pokemonId,
+            ],
+          };
+        }),
+      removeFavoritePokemon: (pokemonId: string) =>
+        set((prevState: FavoritePokemonState) => {
+          return {
+            currentFavoritePokemon: [
+              ...prevState.currentFavoritePokemon?.filter(
+                (pokemon) => pokemon !== pokemonId
+              ),
+            ],
+          };
+        }),
+    }),
+    {
+      name: "favorite-storage",
+      getStorage: () => localStorage,
+    }
+  )
+);

@@ -1,0 +1,27 @@
+.chipCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+
+  box-shadow: 2px 10px 24px -6px rgba(126, 119, 119, 0.75);
+}
+
+.chipCard > span {
+  font-size: 12px;
+  color: rgb(83, 83, 83);
+}
+
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}

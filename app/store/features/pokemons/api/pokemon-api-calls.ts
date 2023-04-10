@@ -7,11 +7,12 @@ import { pokemonInfoParams } from "../types";
 
 const axiosInstance = AxiosHttpClient.getInstance();
 
-export const listAllPokemonNamesList = async (): Promise<
-  HttpResponse<PokemonNamesList>
-> => {
+export const listAllPokemonNamesList = async (
+  offset: string,
+  limit: string
+): Promise<HttpResponse<PokemonNamesList>> => {
   const LoadPokemonNamesInstance = new RemoteLoadPokemonNames(axiosInstance);
-  return await LoadPokemonNamesInstance.load();
+  return await LoadPokemonNamesInstance.load({ offset, limit });
 };
 
 export const listPokemonInfo = async (

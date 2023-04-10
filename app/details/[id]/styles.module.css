@@ -1,0 +1,68 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  background-color: rgb(241, 241, 241);
+  border-radius: 8px;
+  gap: 8px;
+  padding: 16px;
+  -webkit-box-shadow: 2px 10px 24px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 10px 24px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 10px 24px -6px rgba(0, 0, 0, 0.75);
+
+  position: relative;
+}
+
+.bodyCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.bodyCard > div > h3 {
+  font-size: 24px;
+  text-transform: capitalize;
+}
+
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.abilityContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.abilityContainer > ul > li {
+  text-transform: capitalize;
+  gap: 8px;
+  list-style: square;
+}
+
+.AddFav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: rgb(0, 70, 128);
+  font-size: 12px;
+}
+
+.AddFav:hover {
+  color: rgb(0, 70, 128);
+}
