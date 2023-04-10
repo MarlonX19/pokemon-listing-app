@@ -17,7 +17,7 @@ export class RemoteLoadPokemonNames implements LoadPokemonNamesList {
   async load(params?: Params): Promise<HttpResponse<PokemonNamesList>> {
     const httpResponse = await this.httpClient.request({
       method: "get",
-      url: `${makeApiUrl()}/pokemon?offset=${params?.offset}&limit=${
+      url: `${makeApiUrl()}pokemon?offset=${params?.offset}&limit=${
         params?.limit
       }`,
     });

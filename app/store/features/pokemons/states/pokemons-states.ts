@@ -26,7 +26,7 @@ interface FavoritePokemonState {
   updateFavoritePokemonInfo: (info: any) => void;
 }
 
-export const usePokemonState = create<PokemonState>((set) => ({
+export const usePokemonState = create<PokemonState>()((set) => ({
   pokemonNamesList: {} as PokemonNamesList,
   pokemonInfoList: [] as PokemonInfoResponse[],
   getAllPokemonNames: async (offset: string, limit: string) => {

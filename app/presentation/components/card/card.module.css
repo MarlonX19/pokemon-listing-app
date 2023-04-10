@@ -38,3 +38,7 @@
 .RemoveFav:hover {
   color: rgb(0, 70, 128);
 }
+
+.cardTitle {
+  text-transform: capitalize;
+}

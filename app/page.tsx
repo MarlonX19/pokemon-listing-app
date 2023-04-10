@@ -1,11 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Inter } from "next/font/google";
-import {
-  listPokemonInfo,
-  useFavoritePokemons,
-  usePokemonState,
-} from "./store/features";
+import { useFavoritePokemons, usePokemonState } from "./store/features";
 import styles from "./page.module.css";
 import { Card, Container } from "./presentation/components";
 import Pagination from "./presentation/components/pagination";
@@ -22,7 +18,6 @@ export default function Home() {
     updateFavoritePokemonInfo,
     currentFavoriteDetails,
   } = useFavoritePokemons((state) => state);
-  console.log("===xxx", currentFavoriteDetails);
 
   const {
     pokemonNamesList,
@@ -31,22 +26,18 @@ export default function Home() {
     getAllPokemonInfo,
   } = usePokemonState((state) => state);
 
-  console.log("===vvv", pokemonInfoList);
-
   const favoriteFilteredList = pokemonInfoList.filter((values) => {
     if (currentFavoritePokemon.includes(String(values.body.id))) {
       return values;
     }
   });
 
-  console.log("===favoriteFilteredList", favoriteFilteredList);
-
   useEffect(() => {
     getAllPokemonNames(String(offset), String(LIMIT));
   }, [offset]);
 
   useEffect(() => {
-    if (pokemonNamesList.results) {
+    if (pokemonNamesList?.results) {
       getAllPokemonInfo(pokemonNamesList.results);
     }
   }, [pokemonNamesList]);
@@ -55,7 +46,7 @@ export default function Home() {
     if (favoriteFilteredList?.length > 0) {
       updateFavoritePokemonInfo(favoriteFilteredList);
     }
-  }, []);
+  }, [pokemonInfoList]);
 
   return (
     <div className={styles.main}>

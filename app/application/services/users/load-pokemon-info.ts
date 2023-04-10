@@ -1,6 +1,5 @@
 import { HttpResponse, HttpClient } from "../../protocols/http";
 import { PokemonInfoResponse } from "@/app/domain/models";
-import { makeApiUrl } from "@/app/utils";
 import { LoadPokemonInfo } from "@/app/domain/usecases/users/load-pokemon-info";
 
 export class RemoteLoadPokemonInfo implements LoadPokemonInfo {
