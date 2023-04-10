@@ -20,8 +20,10 @@ interface PokemonState {
 
 interface FavoritePokemonState {
   currentFavoritePokemon: string[];
+  currentFavoriteDetails: PokemonInfoResponse[];
   addFavoritePokemon: (param: string) => void;
   removeFavoritePokemon: (param: string) => void;
+  updateFavoritePokemonInfo: (info: any) => void;
 }
 
 export const usePokemonState = create<PokemonState>((set) => ({
@@ -47,6 +49,7 @@ export const useFavoritePokemons = create<FavoritePokemonState>()(
   persist(
     (set, get) => ({
       currentFavoritePokemon: [] as string[],
+      currentFavoriteDetails: [] as PokemonInfoResponse[],
       addFavoritePokemon: (pokemonId: string) =>
         set((prevState: FavoritePokemonState) => {
           return {
@@ -64,6 +67,12 @@ export const useFavoritePokemons = create<FavoritePokemonState>()(
                 (pokemon) => pokemon !== pokemonId
               ),
             ],
+          };
+        }),
+      updateFavoritePokemonInfo: (info: PokemonInfoResponse[]) =>
+        set(() => {
+          return {
+            currentFavoriteDetails: [...info],
           };
         }),
     }),

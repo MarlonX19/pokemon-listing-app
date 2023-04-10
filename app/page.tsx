@@ -17,7 +17,12 @@ const LIMIT = 20;
 export default function Home() {
   const [offset, setOffset] = useState<string | number>("0");
 
-  console.log("===offset", offset);
+  const {
+    currentFavoritePokemon,
+    updateFavoritePokemonInfo,
+    currentFavoriteDetails,
+  } = useFavoritePokemons((state) => state);
+  console.log("===xxx", currentFavoriteDetails);
 
   const {
     pokemonNamesList,
@@ -26,9 +31,15 @@ export default function Home() {
     getAllPokemonInfo,
   } = usePokemonState((state) => state);
 
-  const { currentFavoritePokemon } = useFavoritePokemons((state: any) => state);
+  console.log("===vvv", pokemonInfoList);
 
-  console.log("===currentFavoritePokemon", currentFavoritePokemon);
+  const favoriteFilteredList = pokemonInfoList.filter((values) => {
+    if (currentFavoritePokemon.includes(String(values.body.id))) {
+      return values;
+    }
+  });
+
+  console.log("===favoriteFilteredList", favoriteFilteredList);
 
   useEffect(() => {
     getAllPokemonNames(String(offset), String(LIMIT));
@@ -39,6 +50,12 @@ export default function Home() {
       getAllPokemonInfo(pokemonNamesList.results);
     }
   }, [pokemonNamesList]);
+
+  useEffect(() => {
+    if (favoriteFilteredList?.length > 0) {
+      updateFavoritePokemonInfo(favoriteFilteredList);
+    }
+  }, []);
 
   return (
     <div className={styles.main}>
